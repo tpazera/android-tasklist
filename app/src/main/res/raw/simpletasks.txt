@@ -1,0 +1,4 @@
+First task, 2019-12-05 23:32, My first task on the list, 150min
+Second task, 2019-12-06 15:25, My second task on the list, 120min
+Third task, 2019-12-07 10:00, My third task on the list, 60min
+Fourth task, 2019-12-08 16:00, My fourth task on the list, 30min
