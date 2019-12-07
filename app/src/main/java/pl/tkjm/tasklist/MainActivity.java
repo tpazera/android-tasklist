@@ -1,5 +1,8 @@
 package pl.tkjm.tasklist;
 
+import android.content.Intent;
+import android.view.View;
+import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.database.sqlite.SQLiteDatabase;
@@ -23,5 +26,19 @@ public class MainActivity extends AppCompatActivity {
         for(Task t : taskList) {
             Log.i("db", t.getTitle());
         }
+
+        setActivity(R.id.button, AddActivity.class);
+        setActivity(R.id.button1, ShowActivity.class);
+    }
+
+    private void setActivity(int buttonId, final Class activity) {
+        Button button = findViewById(buttonId);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Intent intent = new Intent(MainActivity.this, activity);
+                startActivity(intent);
+            }
+        });
     }
 }
