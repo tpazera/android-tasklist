@@ -9,8 +9,6 @@ public class Task implements Serializable {
     private String duration;
     private String date;
 
-    public Task() {}
-
     public Task(String title, String description, String date, String duration) {
         this.title = title;
         this.description = description;

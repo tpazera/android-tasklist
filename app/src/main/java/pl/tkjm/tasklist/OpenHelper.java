@@ -13,7 +13,7 @@ public class OpenHelper extends SQLiteOpenHelper {
 
     private Context context;
     public OpenHelper(final Context context) {
-        super(context, "task", null,3);
+        super(context, "task", null,5);
         this.context = context;
     }
     @Override

@@ -7,4 +7,24 @@
         android:layout_height="match_parent"
         tools:context="pl.tkjm.tasklist.ShowActivity">
 
+    <TextView
+            android:text="@string/task_list"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:id="@+id/textView"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="17dp" android:layout_marginEnd="17dp"
+            app:layout_constraintHorizontal_bias="0.0"
+            android:textSize="16pt"
+            android:layout_marginBottom="8dp" app:layout_constraintBottom_toTopOf="@+id/taskListView"/>
+    <ListView
+            android:id="@+id/taskListView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@+id/textView" android:layout_marginBottom="8dp"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginStart="8dp" android:layout_marginEnd="8dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
