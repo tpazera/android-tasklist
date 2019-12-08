@@ -1,20 +1,18 @@
 package pl.tkjm.tasklist;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.DatePickerDialog;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Toast;
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.List;
 import java.util.Locale;
 
 public class AddActivity extends AppCompatActivity {
@@ -63,6 +61,14 @@ public class AddActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Task task = new Task(title.getText().toString(), description.getText().toString(), dateText.getText().toString(), duration.getText().toString());
                 taskDao.save(task);
+
+                title.getText().clear();
+                description.getText().clear();
+                duration.getText().clear();
+                dateText.getText().clear();
+
+                Toast.makeText(v.getContext(), "Task created", Toast.LENGTH_SHORT).show();
+
             }
         });
     }
