@@ -2,15 +2,11 @@ package pl.tkjm.tasklist;
 
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.os.Build;
-import android.view.View;
-import android.widget.AdapterView;
+import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import androidx.appcompat.app.AppCompatActivity;
-import android.os.Bundle;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ShowActivity extends AppCompatActivity {
@@ -37,16 +33,13 @@ public class ShowActivity extends AppCompatActivity {
         final ListView listView = findViewById(R.id.taskListView);
         listView.setAdapter(itemsAdapter);
 
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                taskDao.delete(taskList.get(i));
-                setListItems();
-                itemsAdapter.clear();
-                itemsAdapter.addAll(taskList);
+        listView.setOnItemLongClickListener((adapterView, view, i, l) -> {
+            taskDao.delete(taskList.get(i));
+            setListItems();
+            itemsAdapter.clear();
+            itemsAdapter.addAll(taskList);
 
-                return true;
-            }
+            return true;
         });
 
     }
