@@ -43,6 +43,9 @@ public class MainActivity extends AppCompatActivity {
                 new String[]{Manifest.permission.RECORD_AUDIO},
                 1);
 
+        Intent service = new Intent(this, CheckTaskService.class);
+        startService(service);
+
     }
 
     private void setActivity(int buttonId, final Class activity) {
