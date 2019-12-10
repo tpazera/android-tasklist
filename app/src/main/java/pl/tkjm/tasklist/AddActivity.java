@@ -1,6 +1,7 @@
 package pl.tkjm.tasklist;
 
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TimePicker;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -23,26 +25,33 @@ public class AddActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add);
 
         final Calendar myCalendar = Calendar.getInstance();
-        final EditText dateText = findViewById(R.id.editTextDate);
+        final EditText dateTimeText = findViewById(R.id.editTextDate);
+        final TimePickerDialog.OnTimeSetListener time = new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                myCalendar.set(Calendar.HOUR, hourOfDay);
+                myCalendar.set(Calendar.MINUTE, minute);
+
+                updateLabel(dateTimeText, myCalendar);
+            }
+        };
+
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 
             @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear,
-                                  int dayOfMonth) {
-                // TODO Auto-generated method stub
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 myCalendar.set(Calendar.YEAR, year);
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                updateLabel(dateText, myCalendar);
-            }
 
+                new TimePickerDialog(AddActivity.this, time, myCalendar.get(Calendar.HOUR), myCalendar.get(Calendar.MINUTE), true).show();
+            }
         };
 
-        dateText.setOnClickListener(new View.OnClickListener() {
+        dateTimeText.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 new DatePickerDialog(AddActivity.this, date, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
@@ -59,13 +68,13 @@ public class AddActivity extends AppCompatActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Task task = new Task(title.getText().toString(), description.getText().toString(), dateText.getText().toString(), duration.getText().toString());
+                Task task = new Task(title.getText().toString(), description.getText().toString(), dateTimeText.getText().toString(), duration.getText().toString());
                 taskDao.save(task);
 
                 title.getText().clear();
                 description.getText().clear();
                 duration.getText().clear();
-                dateText.getText().clear();
+                dateTimeText.getText().clear();
 
                 Toast.makeText(v.getContext(), "Task created", Toast.LENGTH_SHORT).show();
 
@@ -74,7 +83,7 @@ public class AddActivity extends AppCompatActivity {
     }
 
     private void updateLabel(EditText edittext, Calendar myCalendar) {
-        String myFormat = "MM/dd/yy";
+        String myFormat = "yyyy-MM-dd HH:mm";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.UK);
 
         edittext.setText(sdf.format(myCalendar.getTime()));
