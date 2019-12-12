@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import java.text.ParseException;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -47,12 +48,17 @@ public class CheckTaskService extends Service {
             List<Task> taskList = taskDao.getAll();
             for(Task t : taskList) {
                 Log.i("db", t.getDate());
-                Date taskDate = sdf.parse(t.getDate(), new ParsePosition(0));
-                if (nowDate.compareTo(taskDate) > 0){
-                    builder.setContentText("Zadanie to: " + t.getTitle());
-                    NotificationManagerCompat notificationManager = NotificationManagerCompat.from(getApplicationContext());
-                    notificationManager.notify(11, builder.build());
+                try {
+                    Date taskDate = sdf.parse(t.getDate(), new ParsePosition(0));
 
+                    if (nowDate.compareTo(taskDate) > 0){
+                        builder.setContentText(getString(R.string.task_is) + t.getTitle());
+                        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(getApplicationContext());
+                        notificationManager.notify(11, builder.build());
+
+                    }
+                } catch(Exception e) {
+                    e.printStackTrace();
                 }
             }
         }
@@ -67,13 +73,13 @@ public class CheckTaskService extends Service {
         taskDao = new TaskDao(db);
 
         timer = new Timer();
-        Toast.makeText(this, "Check-Task service has been started", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, R.string.service_started, Toast.LENGTH_SHORT).show();
 
         long[] pattern = {500,500,500,500,500,500,500,500,500};
         Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         builder = new NotificationCompat.Builder(getApplicationContext(), "null")
                 .setSmallIcon(R.drawable.ic_stat_access_alarm)
-                .setContentTitle("Alarm! Zadanie się rozpoczęło!")
+                .setContentTitle(getString(R.string.alarm))
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setCategory(NotificationCompat.CATEGORY_ALARM)
                 .setLights(Color.BLUE, 500, 500)
@@ -88,7 +94,7 @@ public class CheckTaskService extends Service {
             timer.purge();
         }
         task = new MyTimerTask();
-        timer.scheduleAtFixedRate(task, 1000, 10000);
+        timer.scheduleAtFixedRate(task, 6000, 60000);
 
         return super.onStartCommand(intent, flags, startId);
     }
@@ -96,6 +102,6 @@ public class CheckTaskService extends Service {
     @Override
     public IBinder onBind(Intent intent) {
         // TODO: Return the communication channel to the service.
-        throw new UnsupportedOperationException("Not yet implemented");
+        throw new UnsupportedOperationException(getString(R.string.not_implemented));
     }
 }

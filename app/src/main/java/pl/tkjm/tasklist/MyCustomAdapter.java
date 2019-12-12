@@ -54,7 +54,7 @@ public class MyCustomAdapter extends BaseAdapter implements ListAdapter {
             taskDao.delete(list.get(position));
             list.remove(position);
             notifyDataSetChanged();
-            Toast.makeText(context, "Task deleted", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Task finished", Toast.LENGTH_SHORT).show();
         });
 
         return view;
