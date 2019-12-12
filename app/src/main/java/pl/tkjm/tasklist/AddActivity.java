@@ -22,7 +22,7 @@ public class AddActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add);
+        setContentView(R.layout.activiity_add);
 
         final Calendar myCalendar = Calendar.getInstance();
         final EditText dateTimeText = findViewById(R.id.editTextDate);
@@ -76,7 +76,7 @@ public class AddActivity extends AppCompatActivity {
                 duration.getText().clear();
                 dateTimeText.getText().clear();
 
-                Toast.makeText(v.getContext(), "Task created", Toast.LENGTH_SHORT).show();
+                Toast.makeText(v.getContext(), R.string.task_created, Toast.LENGTH_SHORT).show();
 
             }
         });

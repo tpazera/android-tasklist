@@ -7,14 +7,14 @@
                                                    tools:context=".MainActivity">
 
     <Button
-            android:text="PRZEGLĄDNIJ LISTĘ ZADAŃ"
+            android:text="@string/przegl_dnij_list_zada"
             android:layout_width="298dp"
             android:layout_height="91dp"
             android:id="@+id/button1" app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="264dp"
             android:layout_marginStart="32dp"/>
     <Button
-            android:text="DODAJ NOWE ZADANIE"
+            android:text="@string/dodaj_nowe_zadanie"
             android:layout_width="297dp"
             android:layout_height="91dp"
             android:id="@+id/button" app:layout_constraintTop_toTopOf="parent"

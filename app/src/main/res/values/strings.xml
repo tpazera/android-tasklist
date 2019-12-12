@@ -1,6 +1,22 @@
 <resources>
-    <string name="app_name">tasklista</string>
-    <string name="dodaj_nowe_zadanie">DODAJ NOWE ZADANIE</string>
-    <string name="przegl_dnij_list_zada">PRZEGLĄDNIJ LISTĘ ZADAŃ</string>
-    <string name="task_list">Lista zadań</string>
+    <string name="app_name">tasklist</string>
+    <string name="dodaj_nowe_zadanie">Add new task</string>
+    <string name="przegl_dnij_list_zada">Show tasks</string>
+    <string name="task_list">Task list</string>
+    <string name="add">Add</string>
+    <string name="date_time">Date/Time</string>
+    <string name="duration">Duration</string>
+    <string name="add_a_task">Add a task</string>
+    <string name="add_title">Add title…</string>
+    <string name="description">Description</string>
+    <string name="title">Title</string>
+    <string name="add_description">Add description…</string>
+    <string name="yyyy_mm_dd_hh_mm">yyyy-mm-dd hh:mm</string>
+    <string name="add_duration">Add duration…</string>
+    <string name="delete">Finish</string>
+    <string name="task_created">Task created</string>
+    <string name="service_started">Check-Task service has been started</string>
+    <string name="not_implemented">Not yet implemented</string>
+    <string name="task_is">Task:</string>
+    <string name="alarm">Alarm! Task started!</string>
 </resources>
