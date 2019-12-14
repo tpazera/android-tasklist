@@ -2,15 +2,13 @@ package pl.tkjm.tasklist;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.TimePicker;
-import android.widget.Toast;
+import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.text.SimpleDateFormat;
@@ -18,6 +16,10 @@ import java.util.Calendar;
 import java.util.Locale;
 
 public class AddActivity extends AppCompatActivity {
+
+    private EditText title;
+    private EditText description;
+    private EditText duration;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,9 +63,9 @@ public class AddActivity extends AppCompatActivity {
         final TaskDao taskDao = new TaskDao(db);
 
         Button addButton = findViewById(R.id.addingButton);
-        final EditText title = findViewById(R.id.editTextTitle);
-        final EditText description = findViewById(R.id.editTextDesc);
-        final EditText duration = findViewById(R.id.editTextDuration);
+        title = findViewById(R.id.editTextTitle);
+        description = findViewById(R.id.editTextDesc);
+        duration = findViewById(R.id.editTextDuration);
 
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,6 +82,28 @@ public class AddActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("title", title.getText().toString());
+        editor.putString("description", description.getText().toString());
+        editor.putString("duration", duration.getText().toString());
+        editor.apply();
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+        title.setText(sharedPref.getString("title", ""));
+        description.setText(sharedPref.getString("description", ""));
+        duration.setText(sharedPref.getString("duration", ""));
     }
 
     private void updateLabel(EditText edittext, Calendar myCalendar) {
