@@ -20,6 +20,7 @@ public class AddActivity extends AppCompatActivity {
     private EditText title;
     private EditText description;
     private EditText duration;
+    private EditText dateTimeText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +28,7 @@ public class AddActivity extends AppCompatActivity {
         setContentView(R.layout.activiity_add);
 
         final Calendar myCalendar = Calendar.getInstance();
-        final EditText dateTimeText = findViewById(R.id.editTextDate);
+        dateTimeText = findViewById(R.id.editTextDate);
         final TimePickerDialog.OnTimeSetListener time = new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
@@ -93,6 +94,7 @@ public class AddActivity extends AppCompatActivity {
         editor.putString("title", title.getText().toString());
         editor.putString("description", description.getText().toString());
         editor.putString("duration", duration.getText().toString());
+        editor.putString("dateTimeText", dateTimeText.getText().toString());
         editor.apply();
     }
 
@@ -104,6 +106,7 @@ public class AddActivity extends AppCompatActivity {
         title.setText(sharedPref.getString("title", ""));
         description.setText(sharedPref.getString("description", ""));
         duration.setText(sharedPref.getString("duration", ""));
+        dateTimeText.setText(sharedPref.getString("dateTimeText", ""));
     }
 
     private void updateLabel(EditText edittext, Calendar myCalendar) {
