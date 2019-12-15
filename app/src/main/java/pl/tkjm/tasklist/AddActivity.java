@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.*;
@@ -21,12 +22,15 @@ public class AddActivity extends AppCompatActivity {
     private EditText description;
     private EditText duration;
     private EditText dateTimeText;
+    private MediaPlayer mp;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activiity_add);
 
+        mp = MediaPlayer.create(this, R.raw.add);
         final Calendar myCalendar = Calendar.getInstance();
         dateTimeText = findViewById(R.id.editTextDate);
         final TimePickerDialog.OnTimeSetListener time = new TimePickerDialog.OnTimeSetListener() {
@@ -71,6 +75,7 @@ public class AddActivity extends AppCompatActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mp.start();
                 Task task = new Task(title.getText().toString(), description.getText().toString(), dateTimeText.getText().toString(), duration.getText().toString());
                 taskDao.save(task);
 

@@ -2,6 +2,7 @@ package pl.tkjm.tasklist;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -55,8 +56,8 @@ public class MyCustomAdapter extends BaseAdapter implements ListAdapter {
             @Override
             public void onClick(View v) {
                 TaskDetails fragment1 = new TaskDetails();
-                FragmentTransaction transaction = ((FragmentActivity)context).getSupportFragmentManager().beginTransaction();
-                Bundle bundle=new Bundle();
+                FragmentTransaction transaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
+                Bundle bundle = new Bundle();
                 bundle.putString("description", list.get(position).getDescription());
                 bundle.putString("date", list.get(position).getDate());
                 bundle.putString("duration", list.get(position).getDuration());
@@ -69,9 +70,14 @@ public class MyCustomAdapter extends BaseAdapter implements ListAdapter {
             }
         });
 
+        MediaPlayer mp;
+        mp = MediaPlayer.create(context, R.raw.finish);
+
+
         Button deleteBtn = view.findViewById(R.id.delete_btn);
 
         deleteBtn.setOnClickListener(v -> {
+            mp.start();
             taskDao.delete(list.get(position));
             list.remove(position);
             notifyDataSetChanged();
