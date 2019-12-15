@@ -2,10 +2,13 @@ package pl.tkjm.tasklist;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentTransaction;
 
 import java.util.List;
 
@@ -48,6 +51,24 @@ public class MyCustomAdapter extends BaseAdapter implements ListAdapter {
         TextView listItemText = view.findViewById(R.id.list_item_string);
         listItemText.setText(list.get(position).getTitle());
 
+        listItemText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TaskDetails fragment1 = new TaskDetails();
+                FragmentTransaction transaction = ((FragmentActivity)context).getSupportFragmentManager().beginTransaction();
+                Bundle bundle=new Bundle();
+                bundle.putString("description", list.get(position).getDescription());
+                bundle.putString("date", list.get(position).getDate());
+                bundle.putString("duration", list.get(position).getDuration());
+
+                fragment1.setArguments(bundle);
+                transaction.replace(R.id.frameLayout, fragment1);
+                transaction.addToBackStack(null);
+
+                transaction.commit();
+            }
+        });
+
         Button deleteBtn = view.findViewById(R.id.delete_btn);
 
         deleteBtn.setOnClickListener(v -> {
@@ -56,6 +77,7 @@ public class MyCustomAdapter extends BaseAdapter implements ListAdapter {
             notifyDataSetChanged();
             Toast.makeText(context, "Task finished", Toast.LENGTH_SHORT).show();
         });
+
 
         return view;
     }
